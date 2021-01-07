@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
           physics: const BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
-              expandedHeight: 50,
+              expandedHeight: 100,
               stretch: true,
               floating: true,
               pinned: true,
@@ -37,8 +37,20 @@ class _HomeState extends State<Home> {
                   StretchMode.fadeTitle,
                 ],
               ),
+              actions: [
+                Container(
+                  margin: EdgeInsets.only(right: 20),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.logout,
+                      size: 50,
+                    ),
+                  ),
+                )
+              ],
               bottom: TabBar(
-                indicatorColor: Colors.white,
+                indicatorColor: Colors.black,
                 labelColor: Colors.white,
                 labelStyle: TextStyle(fontSize: 30),
                 tabs: [
