@@ -1,5 +1,6 @@
-import 'package:add_and_post_firebase/postpage.dart';
-import 'package:add_and_post_firebase/savedata.dart';
+import 'package:add_and_post_firebase/page/ontap_page/post_friend.dart';
+import 'package:add_and_post_firebase/page/ontap_page/post_public.dart';
+import 'package:add_and_post_firebase/page/ontap_page/add_data.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -12,8 +13,8 @@ DateTime currentDate = DateTime.now();
 class _HomeState extends State<Home> {
   TabController controller;
   List<Widget> pages = [
-    postpage(),
-    savedata(),
+    Postpage(),
+    Post_friend(),
   ];
 
   @override
@@ -25,7 +26,7 @@ class _HomeState extends State<Home> {
           physics: const BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
-              expandedHeight: 100,
+              expandedHeight: 00,
               stretch: true,
               floating: true,
               pinned: true,
@@ -37,28 +38,28 @@ class _HomeState extends State<Home> {
                   StretchMode.fadeTitle,
                 ],
               ),
-              actions: [
-                Container(
-                  margin: EdgeInsets.only(right: 20),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.logout,
-                      size: 50,
-                    ),
-                  ),
-                )
-              ],
+              // actions: [
+              //   Container(
+              //     margin: EdgeInsets.only(right: 20),
+              //     child: IconButton(
+              //       onPressed: () {},
+              //       icon: Icon(
+              //         Icons.logout,
+              //         size: 50,
+              //       ),
+              //     ),
+              //   )
+              // ],
               bottom: TabBar(
                 indicatorColor: Colors.black,
                 labelColor: Colors.white,
-                labelStyle: TextStyle(fontSize: 30),
+                labelStyle: TextStyle(fontSize: 20),
                 tabs: [
                   Tab(
-                    text: 'Post',
+                    text: 'ສາຖາລະນະ',
                   ),
                   Tab(
-                    text: 'save',
+                    text: 'ເພື່ອນ',
                   ),
                 ],
               ),
@@ -67,8 +68,8 @@ class _HomeState extends State<Home> {
               child: TabBarView(
                 controller: controller,
                 children: [
-                  postpage(),
-                  savedata(),
+                  Postpage(),
+                  Post_friend(),
                 ],
               ),
             )

@@ -4,9 +4,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class savedata extends StatefulWidget {
+class Savedata extends StatefulWidget {
   @override
-  _savedataState createState() => _savedataState();
+  _SavedataState createState() => _SavedataState();
 }
 
 TextEditingController emailController = TextEditingController();
@@ -73,35 +73,39 @@ Widget titletext(
   );
 }
 
-class _savedataState extends State<savedata> {
+class _SavedataState extends State<Savedata> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //color: Colors.blue[500],
-      child: Column(
-        children: [
-          addpicture(),
-          titletext(
-              hinttext: 'Name',
-              valueChange: (value) {
-                text1 = value.trim();
-              },
-              top: 50),
-          titletext(
-              hinttext: 'Surname',
-              valueChange: (value) {
-                text2 = value.trim();
-              },
-              top: 10),
-          titletext(
-              hinttext: 'detail',
-              valueChange: (value) {
-                text3 = value.trim();
-              },
-              top: 10),
-          button(),
-        ],
-      ),
+    return ListView(
+      children: [
+        Container(
+          //color: Colors.blue[500],
+          child: Column(
+            children: [
+              addpicture(),
+              titletext(
+                  hinttext: 'Name',
+                  valueChange: (value) {
+                    text1 = value.trim();
+                  },
+                  top: 50),
+              titletext(
+                  hinttext: 'Surname',
+                  valueChange: (value) {
+                    text2 = value.trim();
+                  },
+                  top: 10),
+              titletext(
+                  hinttext: 'detail',
+                  valueChange: (value) {
+                    text3 = value.trim();
+                  },
+                  top: 10),
+              button(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
