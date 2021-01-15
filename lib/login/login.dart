@@ -19,7 +19,7 @@ class loginpage extends StatelessWidget {
                 children: [
                   _textlogo(),
                   SizedBox(
-                    height: 20,
+                    height: 0,
                   ),
                   _buttontext(
                       txtinflied: 'ອີເມວ',
@@ -29,7 +29,7 @@ class loginpage extends StatelessWidget {
                       obscureText: false,
                       keyboardType: TextInputType.emailAddress),
                   SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
                   _buttontext(
                     txtinflied: 'ລະຫັດ',
@@ -39,7 +39,7 @@ class loginpage extends StatelessWidget {
                     obscureText: true,
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   _buttonlogin(context),
                   _textregister(context),
@@ -141,7 +141,8 @@ class loginpage extends StatelessWidget {
         onTap: () {
           MaterialPageRoute materialPageRoute =
               MaterialPageRoute(builder: (buildContext) => registerpage());
-          Navigator.of(buildContext).push(materialPageRoute);
+          Navigator.of(buildContext).pushAndRemoveUntil(
+              materialPageRoute, (Route<dynamic> route) => false);
         },
       ),
     );

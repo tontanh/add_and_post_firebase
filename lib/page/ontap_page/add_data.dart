@@ -14,6 +14,7 @@ TextEditingController passwordController = TextEditingController();
 String text1;
 String text2;
 String text3;
+
 //String imageUrl;
 _boximage() {
   return Container(
