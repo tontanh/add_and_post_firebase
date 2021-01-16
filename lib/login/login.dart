@@ -110,13 +110,12 @@ class loginpage extends StatelessWidget {
           color: Colors.blue,
           borderRadius: BorderRadius.all(Radius.circular(40))),
       child: FlatButton(
-        // color: Colors.blue[100],
-        // onPressed: () {
-        //   print('name = $textgmail  password = $textpwd');
-        //   MaterialPageRoute materialPageRoute =
-        //       MaterialPageRoute(builder: (buildContext) => Main_page());
-        //   Navigator.of(buildContext).push(materialPageRoute);
-        // },
+        onPressed: () {
+          MaterialPageRoute materialPageRoute =
+              MaterialPageRoute(builder: (buildContext) => Main_page());
+          Navigator.of(buildContext).pushAndRemoveUntil(
+              materialPageRoute, (Route<dynamic> route) => false);
+        },
         child: Text(
           'Login',
           style: TextStyle(fontSize: 18, color: Colors.white),
@@ -128,10 +127,10 @@ class loginpage extends StatelessWidget {
   _textregister(BuildContext buildContext) {
     return Container(
       alignment: Alignment.bottomRight,
-      margin: EdgeInsets.only(right: 30),
+      margin: EdgeInsets.only(right: 35),
       child: InkWell(
         child: Text(
-          'Register',
+          'ລົງທະບຽນ',
           style: TextStyle(
             color: Colors.blue,
             fontSize: 18,
