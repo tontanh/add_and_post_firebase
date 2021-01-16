@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'dart:math';
 
+import 'package:add_and_post_firebase/page/Widgets/showdialog.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,9 +17,10 @@ class _SavedataState extends State<Savedata> {
   TextEditingController passwordController = TextEditingController();
   File _image;
   final picker = ImagePicker();
-  String text1;
-  String text2;
-  String text3;
+  String textnameplace;
+  String textdetail;
+  String texttime;
+  String urlPicture;
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
@@ -46,21 +50,21 @@ class _SavedataState extends State<Savedata> {
                     titletext(
                         hinttext: 'ຊື່ສະຖານທີ',
                         valueChange: (value) {
-                          text1 = value.trim();
+                          textnameplace = value.trim();
                         },
                         top: 10,
                         width: 300),
                     titletext(
                         hinttext: 'ລາຍລະອຽດ',
                         valueChange: (value) {
-                          text2 = value.trim();
+                          textdetail = value.trim();
                         },
                         top: 10,
                         width: 300),
                     titletext(
                       hinttext: 'ເວລາ',
                       valueChange: (value) {
-                        text3 = value.trim();
+                        texttime = value.trim();
                       },
                       top: 10,
                       width: 100,
@@ -74,6 +78,18 @@ class _SavedataState extends State<Savedata> {
         ],
       ),
     );
+  }
+
+  Future<void> uploadimages() async {
+    Random random = Random();
+    int i = random.nextInt(10000000);
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    StorageReference storageReference =
+        firebaseStorage.ref().child('images_public/images_post/privite$i.jpg');
+    StorageUploadTask storageUploadTask = storageReference.putFile(_image);
+    urlPicture =
+        await (await storageUploadTask.onComplete).ref.getDownloadURL();
+    print('urlpicture = $urlPicture');
   }
 
   _textshow() {
@@ -143,40 +159,57 @@ class _SavedataState extends State<Savedata> {
   }
 
   Widget button() {
-    return RaisedButton(
-      onPressed: () {
-        print(
-          'name = $text1 surname = $text2 detail = $text3',
-        );
-      },
-      child: Text("ok"),
+    return Container(
+      color: Colors.blue,
+      child: FlatButton(
+        onPressed: () {
+          if (_image == null) {
+            ShowAlertdialog().showalert(
+                context: context,
+                iconData: Icons.error,
+                title: 'ຜິດພາດ',
+                ms: 'ກາລຸນາເພີ່ມຮູບພາບ');
+          } else if (textdetail == null ||
+              textnameplace == null ||
+              texttime == null) {
+            ShowAlertdialog().showalert(
+                context: context,
+                iconData: Icons.error,
+                title: 'ຜິດພາດ',
+                ms: 'ກາລຸນາເພີ່ມຂໍ້ມູນ');
+          } else {
+            uploadimages();
+          }
+        },
+        child: Text("ok"),
+      ),
     );
   }
+}
 
-  Widget titletext(
-      {String hinttext, ValueChanged valueChange, double top, double width}) {
-    return Container(
-      height: 35,
-      width: width,
-      margin: EdgeInsets.only(
-        top: top,
-        left: 30,
-        right: 30,
-      ),
-      //  color: Colors.black,
-      child: TextField(
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(left: 20),
-            hintText: hinttext,
-            fillColor: Colors.grey[200],
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(40),
-              ),
+Widget titletext(
+    {String hinttext, ValueChanged valueChange, double top, double width}) {
+  return Container(
+    height: 35,
+    width: width,
+    margin: EdgeInsets.only(
+      top: top,
+      left: 30,
+      right: 30,
+    ),
+    //  color: Colors.black,
+    child: TextField(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left: 20),
+          hintText: hinttext,
+          fillColor: Colors.grey[200],
+          filled: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(40),
             ),
           ),
-          onChanged: valueChange),
-    );
-  }
+        ),
+        onChanged: valueChange),
+  );
 }
