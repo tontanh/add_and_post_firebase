@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:add_and_post_firebase/page/Widgets/showdialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +91,37 @@ class _SavedataState extends State<Savedata> {
     urlPicture =
         await (await storageUploadTask.onComplete).ref.getDownloadURL();
     print('urlpicture = $urlPicture');
+    // lastidmothed();
+    insertdatatofirebase();
+  }
+
+  // Future<void> lastidmothed() async {
+  //   Firestore rootRef = Firestore.instance;
+
+  //   await rootRef
+  //       .collection('Publicdata')
+  //       .orderBy('id', descending: true)
+  //       .limit(1);
+  //   print('lastid = $rootRef');
+  // }
+
+  Future<void> insertdatatofirebase() async {
+    // int counterdocment = 2;
+    // counterdocment++;
+    Firestore firestore = Firestore.instance;
+    Map<String, dynamic> map = Map();
+    map['placename'] = textnameplace;
+    map['detail'] = textdetail;
+    map['time'] = texttime;
+    map['pathimage'] = urlPicture;
+    //map['id'] = counterdocment++;
+    await firestore
+        .collection('Publicdata')
+        .document()
+        .setData(map)
+        .then((value) {
+      print('success');
+    });
   }
 
   _textshow() {
