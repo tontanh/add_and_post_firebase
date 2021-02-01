@@ -18,10 +18,8 @@ class _SavedataState extends State<Savedata> {
   TextEditingController passwordController = TextEditingController();
   File _image;
   final picker = ImagePicker();
-  String textnameplace;
-  String textdetail;
-  String texttime;
-  String urlPicture;
+  String textnameplace, textdetail, texttime, urlPicture, timenow;
+
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
@@ -108,16 +106,20 @@ class _SavedataState extends State<Savedata> {
   Future<void> insertdatatofirebase() async {
     // int counterdocment = 2;
     // counterdocment++;
+    DateTime now = new DateTime.now();
+    String timenowsaveadd =
+        '${now.year}.${now.month}.${now.day}.${now.hour}.${now.minute}.${now.second}.${now.millisecond}';
     Firestore firestore = Firestore.instance;
     Map<String, dynamic> map = Map();
     map['placename'] = textnameplace;
     map['detail'] = textdetail;
     map['time'] = texttime;
     map['pathimage'] = urlPicture;
+    map['timenow'] = timenowsaveadd;
     //map['id'] = counterdocment++;
     await firestore
         .collection('Publicdata')
-        .document()
+        .document(timenowsaveadd)
         .setData(map)
         .then((value) {
       print('success');

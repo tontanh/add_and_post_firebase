@@ -76,12 +76,34 @@ class _PostpageState extends State<Postpage> {
       ),
     );
   }
+// .collection("Publicdata")
+// .orderBy("timenow", "desc")
+
+//  Firestore firestore = Firestore.instance;
+//     CollectionReference collectionReference =
+//         firestore.collection('Publicdata');
+//     //  .orderBy("timenow".toString(), descending: true);
+//     //.orderBy("timenow");
+//     await collectionReference.snapshots().listen(
+//       (response) {
+//         List<DocumentSnapshot> snapshots = response.documents;
+//         for (var snapshots in snapshots) {
+//           Publicmodels publicmodels = Publicmodels.fromMap(snapshots.data);
+//           setState(() {
+//             publicModels.add(publicmodels);
+//           });
+//         }
+
+  Future<void> readalldatalast() async {}
 
   Future<void> readalldata() async {
-    Firestore firestore = Firestore.instance;
-    CollectionReference collectionReference =
-        firestore.collection('Publicdata');
-    await collectionReference.snapshots().listen(
+    Firestore.instance
+        .collection('Publicdata')
+        .firestore
+        .collection('Publicdata')
+        .orderBy("timenow", descending: true)
+        .snapshots()
+        .listen(
       (response) {
         List<DocumentSnapshot> snapshots = response.documents;
         for (var snapshots in snapshots) {

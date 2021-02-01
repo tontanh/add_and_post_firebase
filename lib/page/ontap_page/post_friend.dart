@@ -8,6 +8,17 @@ class Post_friend extends StatefulWidget {
 class _Post_friendState extends State<Post_friend> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+        // body: Center(child: Timenowsave()),
+        );
   }
 }
+
+// class Timenowsave extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     DateTime now = new DateTime.now();
+//     return Text(
+//         '${now.year}.${now.month}.${now.day}.${now.hour}.${now.minute}.${now.millisecond}');
+//   }
+// }
